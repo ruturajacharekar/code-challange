@@ -1,0 +1,52 @@
+
+drop table site_visit;
+drop table image;
+drop table customerorder;
+drop table customer;
+CREATE TABLE customer 
+(
+	 
+	type VARCHAR(10),
+	verb VARCHAR(6),
+	customer_id VARCHAR(100) not null primary key,
+	event_time timestamp  not null,
+	last_name VARCHAR(45),
+	adr_city VARCHAR(100),
+	adr_state VARCHAR(100)
+);
+
+create table site_visit
+(
+    type varchar(10),
+	verb VARCHAR(6),
+	site_id VARCHAR(100) not null primary key,
+    event_time timestamp not null,
+	customer_id VARCHAR(100) not null,
+    foreign key (customer_id) references customer (customer_id)
+);
+
+
+
+create table image
+(
+    type varchar(10),
+	verb VARCHAR(6),
+	image_id VARCHAR(100) not null  primary key,
+    event_time timestamp not null,
+    camera_make varchar(100),
+    camera_model varchar(100),
+    customer_id VARCHAR(100) not null,
+    foreign key (customer_id) references customer (customer_id)
+);
+
+
+create table customerorder
+(
+    type varchar(10),
+	verb VARCHAR(6),
+	order_id VARCHAR(100) not null primary key,
+    event_time timestamp not null,
+    total_amount int not null,
+    customer_id VARCHAR(100) not null,
+    foreign key (customer_id) references customer (customer_id)
+);
